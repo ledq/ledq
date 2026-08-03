@@ -4,7 +4,7 @@
 
 <img src="assets/stack.v6.svg" alt="stack: python, typescript, c/c++, gcp, docker, terraform, bigquery, airflow, postgres, metabase, next.js, react, fastapi, graphql, tailwind, pytorch, onnx, langchain" width="100%">
 
-### `~/repo`
+### `~/pin`
 
 <table>
 <tr>
