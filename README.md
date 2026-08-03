@@ -1,0 +1,29 @@
+<img src="assets/card.v6.svg" alt="ledq / duy le: software engineer, data and platform and agentic AI" width="100%">
+
+### `~/skills`
+
+<img src="assets/stack.v6.svg" alt="stack: python, typescript, c/c++, gcp, docker, terraform, bigquery, airflow, postgres, metabase, next.js, react, fastapi, graphql, tailwind, pytorch, onnx, langchain" width="100%">
+
+### `~/repo`
+
+<table>
+<tr>
+<td width="50%"><a href="https://github.com/ledq/resumery"><img src="assets/repo-resumery.v6.svg" width="100%" alt="resumery: resume tailoring agents over an evidence bank"></a></td>
+<td width="50%"><a href="https://github.com/scrivner-solutions/FDA-AI-Devices"><img src="assets/repo-fda-ai-devices.v6.svg" width="100%" alt="scrivner-solutions/FDA-AI-Devices: multi-agent regulatory intelligence over fda data"></a></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://github.com/ledq/silero-vad-pi-zero32"><img src="assets/repo-silero-vad-pi-zero32.v6.svg" width="100%" alt="silero-vad-pi-zero32: real-time voice detection on a 512MB pi zero"></a></td>
+<td width="50%"><a href="https://github.com/ledq/deepsilk-backend"><img src="assets/repo-deepsilk-backend.v6.svg" width="100%" alt="deepsilk-backend: about 100 classes at roughly 80 percent mAP"></a></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://github.com/ledq/Room-Classifier"><img src="assets/repo-room-classifier.v6.svg" width="100%" alt="Room-Classifier: cnn classifying room types from photos"></a></td>
+<td width="50%"><a href="https://github.com/ledq/CleFer"><img src="assets/repo-clefer.v6.svg" width="100%" alt="CleFer: chords, lyrics, and contributions for guitarists"></a></td>
+</tr>
+</table>
+
+
+### `~/contact`
+
+[linkedin](https://linkedin.com/in/duyleq) · [danielqle19@gmail.com](mailto:danielqle19@gmail.com) · open to software, data platform, and AI engineering roles
+
+
