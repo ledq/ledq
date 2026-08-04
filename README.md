@@ -1,8 +1,5 @@
 <img src="assets/card.v6.svg" alt="ledq / duy le: software engineer, data and platform and agentic AI" width="100%">
 
-### `~/skills`
-
-<img src="assets/stack.v6.svg" alt="stack: python, typescript, c/c++, gcp, docker, terraform, bigquery, airflow, postgres, metabase, next.js, react, fastapi, graphql, tailwind, pytorch, onnx, langchain" width="100%">
 
 ### `~/pinned`
 
