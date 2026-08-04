@@ -131,6 +131,7 @@ CARD_PITCH = 30
 def build_card():
     # width has slack for the longest INFO value; check after editing INFO
     w, h = 940, 375
+    host = D["card"]["host"]
     style = f"""
 .logo {{ font-size: 16px; fill: {AQUA}; }}
 .key  {{ font-size: 14px; fill: {YELLOW}; font-weight: 700; }}
@@ -156,14 +157,19 @@ def build_card():
         f'<rect x="0" y="0" width="{w}" height="{h}" rx="10" fill="{BG}"/>',
         f'<rect x="0" y="0" width="{w}" height="30" rx="10" fill="{BG1}"/>',
         f'<rect x="0" y="20" width="{w}" height="10" fill="{BG1}"/>',
-        f'<circle cx="20" cy="15" r="5" fill="{RED}"/>',
-        f'<circle cx="38" cy="15" r="5" fill="{YELLOW}"/>',
-        f'<circle cx="56" cy="15" r="5" fill="{GREEN}"/>',
-        f'<text class="mono ttl" x="{w / 2}" y="19" text-anchor="middle">ledq: ~</text>',
+        # minimise / maximise / close, right-aligned the way GTK and Qt do it
+        f'<g stroke="{GRAY}" stroke-width="1.3" fill="none" stroke-linecap="round">'
+        f'<path d="M{w - 84} 15h10"/>'
+        f'<rect x="{w - 58}" y="10" width="10" height="10" rx="1.5"/>'
+        f'<path d="M{w - 32} 10l10 10M{w - 22} 10l-10 10"/></g>',
+        f'<text class="mono ttl" x="{w / 2}" y="19" text-anchor="middle">'
+        f'{esc(D["card"]["title"])}</text>',
         f'<text class="mono logo" x="40" y="82" xml:space="preserve">{tspans(40, WORDMARK, 19)}</text>',
-        f'<text class="mono head" x="360" y="62">duy le</text>',
-        f'<rect class="cur" x="418" y="51" width="9" height="15"/>',
-        f'<text class="mono dim" x="360" y="80">------</text>',
+        # the cursor rides inside the same text run, so it lands right after the
+        # host string whatever monospace font the reader's browser picks
+        f'<text class="mono head" x="360" y="62">{esc(host)}'
+        f'<tspan class="cur">\u2588</tspan></text>',
+        f'<text class="mono dim" x="360" y="80">{"-" * len(host)}</text>',
     ]
     for i, row in enumerate(INFO):
         k, v = row["key"], row["value"]

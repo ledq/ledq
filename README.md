@@ -1,20 +1,20 @@
-<img src="assets/card.6e7963f.svg" alt="ledq / duy le: software engineer, data and platform and agentic AI" width="100%">
+<img src="assets/card.b0c55f7.svg" alt="ledq / duy le: software engineer, data and platform and agentic AI" width="100%">
 
 
 ### `~/pinned`
 
 <table>
 <tr>
-<td width="50%"><a href="https://github.com/ledq/resumery"><img src="assets/repo-resumery.6e7963f.svg" width="100%" alt="resumery: resume tailoring agents over an evidence bank"></a></td>
-<td width="50%"><a href="https://github.com/scrivner-solutions/FDA-AI-Devices"><img src="assets/repo-fda-ai-devices.6e7963f.svg" width="100%" alt="scrivner-solutions/FDA-AI-Devices: multi-agent regulatory intelligence over fda data"></a></td>
+<td width="50%"><a href="https://github.com/ledq/resumery"><img src="assets/repo-resumery.b0c55f7.svg" width="100%" alt="resumery: resume tailoring agents over an evidence bank"></a></td>
+<td width="50%"><a href="https://github.com/scrivner-solutions/FDA-AI-Devices"><img src="assets/repo-fda-ai-devices.b0c55f7.svg" width="100%" alt="scrivner-solutions/FDA-AI-Devices: multi-agent regulatory intelligence over fda data"></a></td>
 </tr>
 <tr>
-<td width="50%"><a href="https://github.com/ledq/silero-vad-pi-zero32"><img src="assets/repo-silero-vad-pi-zero32.6e7963f.svg" width="100%" alt="silero-vad-pi-zero32: real-time voice detection on a 512MB pi zero"></a></td>
-<td width="50%"><a href="https://github.com/ledq/deepsilk-backend"><img src="assets/repo-deepsilk-backend.6e7963f.svg" width="100%" alt="deepsilk-backend: about 100 classes at roughly 80 percent mAP"></a></td>
+<td width="50%"><a href="https://github.com/ledq/silero-vad-pi-zero32"><img src="assets/repo-silero-vad-pi-zero32.b0c55f7.svg" width="100%" alt="silero-vad-pi-zero32: real-time voice detection on a 512MB pi zero"></a></td>
+<td width="50%"><a href="https://github.com/ledq/deepsilk-backend"><img src="assets/repo-deepsilk-backend.b0c55f7.svg" width="100%" alt="deepsilk-backend: about 100 classes at roughly 80 percent mAP"></a></td>
 </tr>
 <tr>
-<td width="50%"><a href="https://github.com/ledq/Room-Classifier"><img src="assets/repo-room-classifier.6e7963f.svg" width="100%" alt="Room-Classifier: cnn classifying room types from photos"></a></td>
-<td width="50%"><a href="https://github.com/ledq/CleFer"><img src="assets/repo-clefer.6e7963f.svg" width="100%" alt="CleFer: chords, lyrics, and contributions for guitarists"></a></td>
+<td width="50%"><a href="https://github.com/ledq/Room-Classifier"><img src="assets/repo-room-classifier.b0c55f7.svg" width="100%" alt="Room-Classifier: cnn classifying room types from photos"></a></td>
+<td width="50%"><a href="https://github.com/ledq/CleFer"><img src="assets/repo-clefer.b0c55f7.svg" width="100%" alt="CleFer: chords, lyrics, and contributions for guitarists"></a></td>
 </tr>
 </table>
 

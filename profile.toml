@@ -74,10 +74,13 @@ value = "open to work"
 icon = "dot"
 color = "green"
 
+[card]
+title = "ledq: ~"          # window titlebar
+host = "ledq@github-ricin" # the user@host line; its underline follows its length
+
 # Brand glyphs where a neofetch card puts its terminal color swatches.
 # Two rows of eight; slugs must appear in a [[stack.groups]] block below, which is
 # where their color comes from.
-[card]
 icons = [
   ["python", "typescript", "cplusplus", "googlecloud", "docker", "terraform",
    "postgresql", "googlebigquery"],
