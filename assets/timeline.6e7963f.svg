@@ -22,7 +22,7 @@
 <text class="mono ax" x="532.4" y="318" text-anchor="middle">2025</text>
 <line x1="746.9" y1="46" x2="746.9" y2="300" stroke="#3c3836"/>
 <text class="mono ax" x="746.9" y="318" text-anchor="middle">2026</text>
-<rect class="bar" x="300" y="64" width="429.0" height="10" rx="5" fill="#504945" style="animation-delay:0s"/>
+<rect class="bar" x="300.0" y="64" width="429.0" height="10" rx="5" fill="#504945" style="animation-delay:0s"/>
 <g class="lbl" style="animation-delay:.1s"><text class="mono rc" x="288" y="73" text-anchor="end">b.s. computer science</text></g>
 <rect class="bar" x="300.0" y="92" width="71.5" height="18" rx="9" fill="#8ec07c" style="animation-delay:0.12s"/>
 <g class="lbl" style="animation-delay:0.12s"><text class="mono rl" x="288" y="101" text-anchor="end">robotics swe</text><text class="mono rc" x="288" y="116" text-anchor="end">rose-hulman ventures</text></g>

@@ -1,0 +1,297 @@
+# Everything on the profile page that is *content*. Edit here, then run
+#   python3 assets/build.py
+# Rendering, layout, palette, and the icon geometry live in assets/build.py.
+#
+# Colors may be a palette name (bg bg1 bg2 gray fg fg_dim red green yellow
+# blue purple aqua orange) or a raw hex string.
+
+# --------------------------------------------------------------------------
+# hero card
+# --------------------------------------------------------------------------
+
+# ASCII wordmark, drawn left of the info block. Leading spaces are significant.
+wordmark = """
+ ███               █
+   █               █
+   █               █
+   █     ███    ██▓█   ██▓█
+   █    ▓▓ ▒█  █▓ ▓█  █▓ ▓█
+   █    █   █  █   █  █   █
+   █    █████  █   █  █   █
+   █    █      █   █  █   █
+   █░   ▓▓  █  █▓ ▓█  █▓ ▓█
+   ▒██   ███▒   ██▓█   ██▓█
+                          █
+                          █
+                          █ """
+
+# One row per line of the neofetch block. `icon` names a glyph from the
+# library in build.py: briefcase target code cloud database globe network
+# cap dot. `color` is optional and defaults to the key color.
+[[info]]
+key = "Role"
+value = "Software Engineer (data · platform · agentic AI)"
+icon = "briefcase"
+
+[[info]]
+key = "Focus"
+value = "full-stack apps, the data platform beneath, agentic AI"
+icon = "target"
+
+[[info]]
+key = "Langs"
+value = "Python · TypeScript · SQL · C/C++"
+icon = "code"
+
+[[info]]
+key = "Cloud"
+value = "GCP · Docker · Terraform"
+icon = "cloud"
+
+[[info]]
+key = "Data"
+value = "BigQuery · Airflow · Dataform · Postgres"
+icon = "database"
+
+[[info]]
+key = "Web"
+value = "Next.js · React · FastAPI · GraphQL"
+icon = "globe"
+
+[[info]]
+key = "ML"
+value = "PyTorch · ONNX · LangChain · XGBoost"
+icon = "network"
+
+[[info]]
+key = "Edu"
+value = "B.S. Computer Science, Rose-Hulman"
+icon = "cap"
+
+[[info]]
+key = "Status"
+value = "open to work"
+icon = "dot"
+color = "green"
+
+# Brand glyphs where a neofetch card puts its terminal color swatches.
+# Two rows of eight; slugs must appear in a [[stack.groups]] block below, which is
+# where their color comes from.
+[card]
+icons = [
+  ["python", "typescript", "cplusplus", "googlecloud", "docker", "terraform",
+   "postgresql", "googlebigquery"],
+  ["apacheairflow", "nextdotjs", "react", "fastapi", "graphql", "pytorch",
+   "langchain", "linux"],
+]
+
+# --------------------------------------------------------------------------
+# stack grid
+# --------------------------------------------------------------------------
+
+# `slug` must exist in assets/icons.json. To add one that is not vendored yet:
+#   curl -s https://cdn.jsdelivr.net/npm/simple-icons/icons/<slug>.svg
+# and add its path data to icons.json. Colors are brand hex, brightened where
+# the official one disappears against a dark background.
+
+[stack]
+# Real parts of the stack with no brand glyph to draw.
+pills = [
+  "Dataform", "Graphile", "LangGraph", "XGBoost", "SHAP", "Cloud Run",
+  "Cloud Build", "Secret Manager", "Datastream", "Fivetran", "vector DB",
+  "Silero VAD", "xv6", "UART", "COCO",
+]
+
+[[stack.groups]]
+name = "languages"
+items = [
+  {slug = "python",     label = "Python",     color = "#4B8BBE"},
+  {slug = "typescript", label = "TypeScript", color = "#4C9BE8"},
+  {slug = "javascript", label = "JavaScript", color = "#F7DF1E"},
+  {slug = "cplusplus",  label = "C/C++",      color = "#659AD2"},
+]
+
+[[stack.groups]]
+name = "cloud"
+items = [
+  {slug = "googlecloud",        label = "GCP",       color = "#4285F4"},
+  {slug = "googlecloudstorage", label = "GCS",       color = "#AECBFA"},
+  {slug = "docker",             label = "Docker",    color = "#2496ED"},
+  {slug = "terraform",          label = "Terraform", color = "#A06CE4"},
+  {slug = "git",                label = "Git",       color = "#F05032"},
+]
+
+[[stack.groups]]
+name = "data"
+items = [
+  {slug = "googlebigquery", label = "BigQuery", color = "#669DF6"},
+  {slug = "apacheairflow",  label = "Airflow",  color = "#2196F3"},
+  {slug = "postgresql",     label = "Postgres", color = "#7CA9E8"},
+  {slug = "metabase",       label = "Metabase", color = "#509EE3"},
+  {slug = "airbyte",        label = "Airbyte",  color = "#8B88FF"},
+  {slug = "tableau",        label = "Tableau",  color = "#E97627"},
+]
+
+[[stack.groups]]
+name = "web"
+items = [
+  {slug = "nextdotjs",   label = "Next.js",     color = "fg"},
+  {slug = "react",       label = "React",       color = "#61DAFB"},
+  {slug = "fastapi",     label = "FastAPI",     color = "#12B5A6"},
+  {slug = "graphql",     label = "GraphQL",     color = "#F04FB4"},
+  {slug = "tailwindcss", label = "Tailwind",    color = "#06B6D4"},
+  {slug = "mui",         label = "Material UI", color = "#007FFF"},
+  {slug = "shadcnui",    label = "shadcn/ui",   color = "fg"},
+  {slug = "drizzle",     label = "Drizzle",     color = "#C5F74F"},
+  {slug = "betterauth",  label = "Better Auth", color = "fg"},
+]
+
+[[stack.groups]]
+name = "ml"
+items = [
+  {slug = "pytorch",     label = "PyTorch",   color = "#EE4C2C"},
+  {slug = "ultralytics", label = "YOLOv8",    color = "#6E8BFF"},
+  {slug = "onnx",        label = "ONNX",      color = "#6E9BFF"},
+  {slug = "langchain",   label = "LangChain", color = "aqua"},
+  {slug = "kaggle",      label = "Kaggle",    color = "#20BEFF"},
+]
+
+[[stack.groups]]
+name = "systems"
+items = [
+  {slug = "linux",       label = "Linux",        color = "fg"},
+  {slug = "raspberrypi", label = "Raspberry Pi", color = "#E8437A"},
+  {slug = "ros",         label = "ROS2",         color = "#83A598"},
+]
+
+# --------------------------------------------------------------------------
+# repo cards
+# --------------------------------------------------------------------------
+
+# Only `pinned = true` repos get a card generated. The README table that
+# arranges them is hand-authored, so adding a pin here also means adding a
+# cell there.
+# `stars` is a snapshot; refresh when it moves.
+
+[[repos]]
+slug = "resumery"
+desc = "resume tailoring agents over an evidence bank"
+lang = "Python"
+stars = 1
+pinned = true
+
+[[repos]]
+slug = "FDA-AI-Devices"
+owner = "scrivner-solutions"
+desc = "multi-agent regulatory intelligence, fda data"
+lang = "TypeScript"
+pinned = true
+
+[[repos]]
+slug = "silero-vad-pi-zero32"
+desc = "real-time voice detection on a 512MB pi zero"
+lang = "Python"
+stars = 2
+pinned = true
+
+[[repos]]
+slug = "deepsilk-backend"
+desc = "about 100 classes at roughly 80% mAP"
+lang = "Python"
+pinned = true
+
+[[repos]]
+slug = "Room-Classifier"
+desc = "cnn classifying room types from photos"
+lang = "MATLAB"
+pinned = true
+
+[[repos]]
+slug = "CleFer"
+desc = "chords, lyrics, and contributions for guitarists"
+lang = "HTML"
+pinned = true
+
+# --- not pinned: the rest of the catalog, kept so a swap is a one-word edit ---
+
+[[repos]]
+slug = "deepsilk-frontend"
+desc = "front end for the deepsilk detector"
+lang = "TypeScript"
+
+[[repos]]
+slug = "speechbrain_vad"
+desc = "voice detection on a raspberry pi, via speechbrain"
+lang = "Python"
+
+[[repos]]
+slug = "netsec-project"
+desc = "network security project"
+lang = "Shell"
+
+[[repos]]
+slug = "Arcade-game-Bomb-Jack"
+desc = "bomb jack, rebuilt"
+lang = "Java"
+
+[[repos]]
+slug = "Laptop-Finder"
+desc = "laptop search tool"
+lang = "Java"
+
+[[repos]]
+slug = "TickyTag-Game"
+desc = ""
+lang = "Python"
+
+# --------------------------------------------------------------------------
+# timeline (generated, currently not shown on the page)
+# --------------------------------------------------------------------------
+
+[timeline]
+span = 32                                    # months plotted, dec 2023 onward
+years = [[1, "2024"], [13, "2025"], [25, "2026"]]
+education = {label = "b.s. computer science", start = 0, end = 24}
+
+# `start` and `end` are months since dec 2023.
+[[timeline.roles]]
+role = "robotics swe"
+org = "rose-hulman ventures"
+start = 0
+end = 4
+color = "aqua"
+
+[[timeline.roles]]
+role = "teaching assistant, os"
+org = "rose-hulman"
+start = 3
+end = 9
+color = "purple"
+
+[[timeline.roles]]
+role = "full-stack engineer"
+org = "worldclass"
+start = 8
+end = 17
+color = "blue"
+
+[[timeline.roles]]
+role = "ml engineer"
+org = "rose-hulman ventures / quadralynx"
+start = 14
+end = 17
+color = "aqua"
+
+[[timeline.roles]]
+role = "swe intern"
+org = "upper hand ai"
+start = 17
+end = 24
+color = "orange"
+
+[[timeline.roles]]
+role = "data engineer"
+org = "upper hand ai"
+start = 24
+end = 30
+color = "yellow"
