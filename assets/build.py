@@ -22,7 +22,7 @@ HEAD = '<?xml version="1.0" encoding="UTF-8"?>\n'
 
 # Bump when a design changes: GitHub's camo proxy caches images by URL, so a
 # same-named file keeps serving the stale copy.
-CARD_V = "v7"
+CARD_V = "v8"
 
 # Every repo card uses one accent; per-repo colours read as noise, not signal.
 CARD_ACCENT = "#fabd2f"
@@ -89,6 +89,37 @@ INFO = [
     ("Status", "open to work"),
 ]
 
+# One glyph per INFO row, the way a riced fastfetch config puts a nerd-font
+# icon in front of every key. Nerd fonts are not installed on GitHub's
+# renderer, so these are hand-drawn line icons on a 16x16 grid instead.
+FIELD_ICONS = {
+    "Role": '<rect x="2" y="5.4" width="12" height="8.2" rx="1.2"/>'
+            '<path d="M6 5.4V4.1h4v1.3M2 9.1h12"/>',
+    "Focus": '<circle cx="8" cy="8" r="5.6"/><circle cx="8" cy="8" r="2.4"/>'
+             '<circle cx="8" cy="8" r="0.9" stroke="none" fill="currentColor"/>',
+    "Langs": '<path d="M5.6 4.6 2 8l3.6 3.4M10.4 4.6 14 8l-3.6 3.4'
+             'M9.5 3.3 6.5 12.7"/>',
+    "Cloud": '<path d="M4.7 12.6h6.6a3 3 0 0 0 .3-6 4.1 4.1 0 0 0-7.6-.6'
+             'A2.9 2.9 0 0 0 4.7 12.6z"/>',
+    "Data": '<ellipse cx="8" cy="4.2" rx="5.2" ry="2"/>'
+            '<path d="M2.8 4.2v7.6c0 1.1 2.3 2 5.2 2s5.2-.9 5.2-2V4.2'
+            'M2.8 8c0 1.1 2.3 2 5.2 2s5.2-.9 5.2-2"/>',
+    "Web": '<circle cx="8" cy="8" r="5.6"/>'
+           '<path d="M2.4 8h11.2M8 2.4c1.5 1.7 2.3 3.5 2.3 5.6S9.5 11.9 8 13.6'
+           'C6.5 11.9 5.7 10.1 5.7 8S6.5 4.1 8 2.4z"/>',
+    "ML": '<path d="m4.7 5.2 2 1.9m-2 3.7 2-1.9m2.6-1.8 2-1.9m-2 3.7 2 1.9"/>'
+          '<circle cx="3.4" cy="4.4" r="1.3"/><circle cx="3.4" cy="11.6" r="1.3"/>'
+          '<circle cx="8" cy="8" r="1.3"/><circle cx="12.6" cy="4.4" r="1.3"/>'
+          '<circle cx="12.6" cy="11.6" r="1.3"/>',
+    "Edu": '<path d="M8 2.9 1.5 6.1 8 9.3l6.5-3.2L8 2.9z"/>'
+           '<path d="M4.4 7.6V11c0 1 1.6 1.9 3.6 1.9s3.6-.9 3.6-1.9V7.6"/>',
+    "Status": '<circle cx="8" cy="8" r="2.4" stroke="none" fill="currentColor"/>'
+              '<circle class="ping" cx="8" cy="8" r="5.2"/>',
+}
+FIELD_ICON_COLOR = {"Status": GREEN}
+FIELD_ICON = 15
+FALLBACK_ICON = '<circle cx="8" cy="8" r="2.2" stroke="none" fill="currentColor"/>'
+
 # Where a neofetch card puts its terminal colour swatches. Same 8-wide grid,
 # one glyph per cell; colours are looked up from STACK so they stay in one place.
 CARD_ICONS = [
@@ -117,6 +148,11 @@ def build_card():
         animation: pop .45s cubic-bezier(.2,.8,.2,1) backwards; }}
 @keyframes pop {{ from {{ opacity: 0; transform: scale(.4) }}
                  to {{ opacity: 1; transform: scale(1) }} }}
+.fi   {{ stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }}
+.ping {{ transform-box: fill-box; transform-origin: center;
+        animation: ping 2.6s ease-out infinite; }}
+@keyframes ping {{ 0% {{ opacity: .75; transform: scale(.62) }}
+                  70%,100% {{ opacity: 0; transform: scale(1.15) }} }}
 .row  {{ animation: fade .5s ease-out backwards; }}
 @keyframes fade {{ from {{ opacity: 0 }} to {{ opacity: 1 }} }}
 """
@@ -136,9 +172,14 @@ def build_card():
     for i, (k, v) in enumerate(INFO):
         y = 106 + i * 21
         d = f"{0.05 * i:.2f}s"
+        col = FIELD_ICON_COLOR.get(k, YELLOW)
+        glyph = FIELD_ICONS.get(k, FALLBACK_ICON)
         b.append(
             f'<g class="row" style="animation-delay:{d}">'
-            f'<text class="mono key" x="360" y="{y}">{esc(k)}</text>'
+            f'<g class="fi" stroke="{col}" fill="none" style="color:{col}" '
+            f'transform="translate(358,{y - 12}) scale({FIELD_ICON / 16:.4f})">'
+            f"{glyph}</g>"
+            f'<text class="mono key" x="382" y="{y}">{esc(k)}</text>'
             f'<text class="mono val" x="450" y="{y}">{esc(v)}</text></g>'
         )
     icons = json.loads((OUT / "icons.json").read_text())
