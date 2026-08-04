@@ -30,12 +30,12 @@ wordmark = """
 # cap dot. `color` is optional and defaults to the key color.
 [[info]]
 key = "Role"
-value = "Software Engineer (data · platform · agentic AI)"
+value = "Software Engineer (data · platform · AI/ML)"
 icon = "briefcase"
 
 [[info]]
 key = "Focus"
-value = "full-stack apps, the data platform beneath, agentic AI"
+value = "full-stack apps, the data platform beneath, AI/ML"
 icon = "target"
 
 [[info]]
