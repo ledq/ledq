@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 72" width="430" height="72" role="img" aria-label="email: danielqle19@gmail.com">
+<style>
+.mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+
+.p { font-size: 12.5px; }
+.v { font-size: 13px; fill: #ebdbb2; }
+</style>
+<rect x="0.5" y="0.5" width="429" height="71" fill="#282828" stroke="#3c3836"/>
+<text class="mono p" x="18" y="27" xml:space="preserve"><tspan fill="#b8bb26" font-weight="700">ledq@github-ricin</tspan><tspan fill="#ebdbb2">:</tspan><tspan fill="#83a598">~</tspan><tspan fill="#ebdbb2">$ </tspan><tspan fill="#a89984">xdg-open email</tspan></text>
+<g transform="translate(18,39)"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA5C4F" transform="scale(0.7083)"/></g>
+<text class="mono v" x="45" y="53">danielqle19@gmail.com</text>
+</svg>

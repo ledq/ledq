@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 96" width="880" height="96" role="img" aria-label="open to software, data platform, and AI engineering roles">
+<style>
+.mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+
+.p { font-size: 12.5px; }
+.v { font-size: 13px; fill: #ebdbb2; }
+.cur { fill: #b8bb26; animation: blink 1.06s steps(1) infinite; }
+@keyframes blink { 0%,50% { opacity: 1 } 50.01%,100% { opacity: 0 } }
+.fi { stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ping { transform-box: fill-box; transform-origin: center;
+        animation: ping 2.6s ease-out infinite; }
+@keyframes ping { 0% { opacity: .75; transform: scale(.62) }
+                  70%,100% { opacity: 0; transform: scale(1.15) } }
+</style>
+<rect x="0.5" y="0.5" width="879" height="95" fill="#282828" stroke="#3c3836"/>
+<text class="mono p" x="18" y="27" xml:space="preserve"><tspan fill="#b8bb26" font-weight="700">ledq@github-ricin</tspan><tspan fill="#ebdbb2">:</tspan><tspan fill="#83a598">~</tspan><tspan fill="#ebdbb2">$ </tspan><tspan fill="#a89984">echo $STATUS</tspan></text>
+<g class="fi" stroke="#b8bb26" fill="none" style="color:#b8bb26" transform="translate(18,38) scale(0.9375)"><circle cx="8" cy="8" r="2.4" stroke="none" fill="currentColor"/><circle class="ping" cx="8" cy="8" r="5.2"/></g>
+<text class="mono v" x="45" y="53">open to software, data platform, and AI engineering roles</text>
+<text class="mono p" x="18" y="79" xml:space="preserve"><tspan fill="#b8bb26" font-weight="700">ledq@github-ricin</tspan><tspan fill="#ebdbb2">:</tspan><tspan fill="#83a598">~</tspan><tspan fill="#ebdbb2">$ </tspan><tspan class="cur">█</tspan></text>
+</svg>

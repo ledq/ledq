@@ -73,6 +73,19 @@ def tspans(x, lines, dy):
     return "".join(out)
 
 
+def prompt(x, y, cls, cmd="", cursor=False):
+    """The shell prompt, coloured the way a gruvbox shell draws it."""
+    t = (f'<text class="mono {cls}" x="{x}" y="{y}" xml:space="preserve">'
+         f'<tspan fill="{GREEN}" font-weight="700">{esc(D["card"]["host"])}</tspan>'
+         f'<tspan fill="{FG}">:</tspan><tspan fill="{BLUE}">~</tspan>'
+         f'<tspan fill="{FG}">$ </tspan>')
+    if cmd:
+        t += f'<tspan fill="{FG_DIM}">{esc(cmd)}</tspan>'
+    if cursor:
+        t += '<tspan class="cur">\u2588</tspan>'
+    return t + "</text>"
+
+
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -191,11 +204,7 @@ def build_card():
                 f'transform="scale({CARD_ICON / 24:.4f})"/>'
                 f"</g></g>"
             )
-    b.append(
-        f'<text class="mono head" x="40" y="{h - 18}">{esc(host)}'
-        f'<tspan fill="{FG}">:</tspan><tspan fill="{BLUE}">~</tspan>'
-        f'<tspan fill="{FG}">$\u00a0</tspan><tspan class="cur">\u2588</tspan></text>'
-    )
+    b.append(prompt(40, h - 18, "head", cursor=True))
     role = next((r["value"] for r in INFO if r["key"] == "Role"), "engineer")
     return svg(w, h, "\n".join(b), style, f"ledq / duy le: {role.lower()}")
 
@@ -280,28 +289,31 @@ CONTACT = D["contact"]
 
 
 def build_contact_card(link):
-    """Same silhouette as a repo tile, so the two sections read as a set."""
+    """A command and its output, so the section reads as the same session."""
     w, h = 430, 72
     style = f"""
-.t {{ font-size: 14.5px; fill: {CARD_ACCENT}; font-weight: 700; }}
-.v {{ font-size: 12px; fill: {FG_DIM}; }}
+.p {{ font-size: 12.5px; }}
+.v {{ font-size: 13px; fill: {FG}; }}
 """
     b = [
-        f'<rect x="0" y="0" width="{w}" height="{h}" rx="9" fill="{BG}" stroke="{BG1}"/>',
-        f'<rect x="0" y="0" width="4" height="{h}" fill="{CARD_ACCENT}"/>',
-        f'<g transform="translate(26,25)"><path d="{ICONS[link["icon"]]["d"]}" '
-        f'fill="{col(link["color"])}" transform="scale({22 / 24:.4f})"/></g>',
-        f'<text class="mono t" x="66" y="34">{esc(link["label"])}</text>',
-        f'<text class="mono v" x="66" y="54">{esc(link["value"])}</text>',
+        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" fill="{BG}" '
+        f'stroke="{BG1}"/>',
+        prompt(18, 27, "p", link["cmd"]),
+        f'<g transform="translate(18,39)"><path d="{ICONS[link["icon"]]["d"]}" '
+        f'fill="{col(link["color"])}" transform="scale({17 / 24:.4f})"/></g>',
+        f'<text class="mono v" x="45" y="53">{esc(link["value"])}</text>',
     ]
     return (f"contact-{link['name']}.{CARD_V}",
             svg(w, h, "\n".join(b), style, f'{link["label"]}: {link["value"]}'))
 
 
 def build_contact_note():
-    w, h = 880, 56
+    w, h = 880, 96
     style = f"""
-.n {{ font-size: 13px; fill: {FG}; }}
+.p {{ font-size: 12.5px; }}
+.v {{ font-size: 13px; fill: {FG}; }}
+.cur {{ fill: {GREEN}; animation: blink 1.06s steps(1) infinite; }}
+@keyframes blink {{ 0%,50% {{ opacity: 1 }} 50.01%,100% {{ opacity: 0 }} }}
 .fi {{ stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }}
 .ping {{ transform-box: fill-box; transform-origin: center;
         animation: ping 2.6s ease-out infinite; }}
@@ -309,12 +321,15 @@ def build_contact_note():
                   70%,100% {{ opacity: 0; transform: scale(1.15) }} }}
 """
     b = [
-        f'<rect x="0" y="0" width="{w}" height="{h}" rx="9" fill="{BG}" stroke="{BG1}"/>',
-        f'<rect x="0" y="0" width="4" height="{h}" fill="{CARD_ACCENT}"/>',
+        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" fill="{BG}" '
+        f'stroke="{BG1}"/>',
+        prompt(18, 27, "p", CONTACT["note_cmd"]),
         f'<g class="fi" stroke="{GREEN}" fill="none" style="color:{GREEN}" '
-        f'transform="translate(26,20) scale({FIELD_ICON / 16:.4f})">'
+        f'transform="translate(18,38) scale({FIELD_ICON / 16:.4f})">'
         f'{FIELD_ICONS["dot"]}</g>',
-        f'<text class="mono n" x="56" y="33">{esc(CONTACT["note"])}</text>',
+        f'<text class="mono v" x="45" y="53">{esc(CONTACT["note"])}</text>',
+        # the session is still open, so it ends on a live prompt
+        prompt(18, 79, "p", cursor=True),
     ]
     return f"contact-note.{CARD_V}", svg(w, h, "\n".join(b), style, CONTACT["note"])
 

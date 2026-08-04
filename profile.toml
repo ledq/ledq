@@ -223,15 +223,18 @@ color = "yellow"
 # contact
 # --------------------------------------------------------------------------
 
-# Each link renders as its own card, wrapped in an <a> by the README. Links
-# inside an SVG are inert on GitHub, which is why these are separate files
-# rather than one strip.
+# Each link renders as its own transcript block, wrapped in an <a> by the
+# README. Links inside an SVG are inert on GitHub, which is why these are
+# separate files rather than one window. `cmd` is the command shown at the
+# prompt; `value` is the line of output under it.
 
 [contact]
 note = "open to software, data platform, and AI engineering roles"
+note_cmd = "echo $STATUS"
 
 [[contact.links]]
 name = "linkedin"
+cmd = "xdg-open linkedin"
 icon = "linkedin"
 color = "#4C9BE8"
 label = "linkedin"
@@ -240,6 +243,7 @@ href = "https://linkedin.com/in/duyleq"
 
 [[contact.links]]
 name = "email"
+cmd = "xdg-open email"
 icon = "gmail"
 color = "#EA5C4F"
 label = "email"
