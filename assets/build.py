@@ -307,33 +307,6 @@ def build_contact_card(link):
             svg(w, h, "\n".join(b), style, f'{link["label"]}: {link["value"]}'))
 
 
-def build_contact_note():
-    w, h = 880, 96
-    style = f"""
-.p {{ font-size: 12.5px; }}
-.v {{ font-size: 13px; fill: {FG}; }}
-.cur {{ fill: {GREEN}; animation: blink 1.06s steps(1) infinite; }}
-@keyframes blink {{ 0%,50% {{ opacity: 1 }} 50.01%,100% {{ opacity: 0 }} }}
-.fi {{ stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }}
-.ping {{ transform-box: fill-box; transform-origin: center;
-        animation: ping 2.6s ease-out infinite; }}
-@keyframes ping {{ 0% {{ opacity: .75; transform: scale(.62) }}
-                  70%,100% {{ opacity: 0; transform: scale(1.15) }} }}
-"""
-    b = [
-        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" fill="{BG}" '
-        f'stroke="{BG1}"/>',
-        prompt(18, 27, "p", CONTACT["note_cmd"]),
-        f'<g class="fi" stroke="{GREEN}" fill="none" style="color:{GREEN}" '
-        f'transform="translate(18,38) scale({FIELD_ICON / 16:.4f})">'
-        f'{FIELD_ICONS["dot"]}</g>',
-        f'<text class="mono v" x="45" y="53">{esc(CONTACT["note"])}</text>',
-        # the session is still open, so it ends on a live prompt
-        prompt(18, 79, "p", cursor=True),
-    ]
-    return f"contact-note.{CARD_V}", svg(w, h, "\n".join(b), style, CONTACT["note"])
-
-
 # --------------------------------------------------------------------------
 # 4. stack: brand glyphs, grouped
 # --------------------------------------------------------------------------
@@ -448,8 +421,6 @@ def main():
     for link in CONTACT["links"]:
         name, doc = build_contact_card(link)
         docs[f"{name}.svg"] = doc
-    name, doc = build_contact_note()
-    docs[f"{name}.svg"] = doc
     for name, doc in docs.items():
         (OUT / name).write_text(doc, encoding="utf-8")
 

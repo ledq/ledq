@@ -229,9 +229,6 @@ color = "yellow"
 # prompt; `value` is the line of output under it.
 
 [contact]
-note = "open to software, data platform, and AI engineering roles"
-note_cmd = "echo $STATUS"
-
 [[contact.links]]
 name = "linkedin"
 cmd = "xdg-open linkedin"
