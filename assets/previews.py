@@ -3,7 +3,9 @@
 
 These drew a 430x120 illustration on top of each project card: a pipeline for
 resumery, an agent graph for FDA-AI-Devices, a waveform for the VAD work, and
-so on. To bring them back, set PREVIEWS = True in build.py and re-run it.
+so on. The cards they sat on were retired when GitHub's own pinned section
+turned out to be the only genuinely live view of a repo, so restoring these
+also means restoring build_repo_tile, which git still has.
 
 Palette constants are duplicated here rather than imported from build.py, so
 this module stays standalone and cannot create a circular import.

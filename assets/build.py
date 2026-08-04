@@ -56,15 +56,6 @@ def version():
 
 CARD_V = version()
 
-# Animated preview bands for the repo cards live in assets/previews.py.
-# They are parked, not deleted: set this True and re-run to bring them back.
-PREVIEWS = False
-
-if PREVIEWS:
-    from previews import BAND, PREVIEW, PVH  # noqa: F401
-else:
-    PVH = 0
-
 
 def svg(w, h, body, style="", label=""):
     return (
@@ -282,79 +273,6 @@ def build_timeline():
 
 
 # --------------------------------------------------------------------------
-# 3. project cards
-# --------------------------------------------------------------------------
-
-# One card per public non-fork repo, ordered by what is worth seeing first.
-# lang colors are GitHub linguist's; stars are a snapshot, refresh when they move.
-LANG = {
-    "Python": "#3572A5", "TypeScript": "#3178c6", "Shell": "#89e051",
-    "HTML": "#e34c26", "MATLAB": "#e16737", "Java": "#b07219",
-}
-
-PINNED = [r["slug"] for r in D["repos"] if r.get("pinned")]
-REPOS = [(r["slug"], r.get("desc", ""), r["lang"], r.get("stars", 0),
-          r.get("owner", "ledq")) for r in D["repos"]]
-
-
-def build_repo_tile(slug, desc, lang, stars, owner="ledq"):
-    accent = CARD_ACCENT
-    title = slug if owner == "ledq" else f"{owner}/{slug}"
-    top = PVH if PREVIEWS else 0
-    w, h = 430, top + 118
-    anim = f"""
-.in {{ animation: rise .55s cubic-bezier(.2,.8,.2,1) backwards; }}
-@keyframes rise {{ from {{ opacity: 0; transform: translateY(8px) }}
-                  to {{ opacity: 1; transform: translateY(0) }} }}
-.ac {{ transform-box: fill-box; transform-origin: top center;
-      animation: drop .5s cubic-bezier(.2,.8,.2,1) backwards; }}
-@keyframes drop {{ from {{ transform: scaleY(0) }} to {{ transform: scaleY(1) }} }}
-""" if PREVIEWS else ""
-    def grp(delay):  # animation hooks only exist when previews are on
-        return f'<g class="in" style="animation-delay:{delay}">' if PREVIEWS else "<g>"
-
-    ac = ' class="ac"' if PREVIEWS else ""
-    b = [f'<rect x="0" y="0" width="{w}" height="{h}" rx="9" fill="{BG}" stroke="{BG1}"/>']
-    pv_css = ""
-    if PREVIEWS:
-        pv_body, pv_css = PREVIEW[slug](accent)
-        b += [
-            f'<rect x="0" y="0" width="{w}" height="{PVH}" rx="9" fill="{BAND}"/>',
-            f'<rect x="0" y="{PVH - 12}" width="{w}" height="12" fill="{BAND}"/>',
-            "\n".join(pv_body),
-            f'<line x1="0" y1="{PVH}" x2="{w}" y2="{PVH}" stroke="{BG1}"/>',
-        ]
-    style = f"""
-.t  {{ font-size: 14.5px; fill: {accent}; font-weight: 700; }}
-.d  {{ font-size: 12px; fill: {FG}; }}
-.g  {{ font-size: 11px; fill: {FG_DIM}; }}
-{anim}{pv_css}"""
-    b += [
-        f'<rect{ac} x="0" y="0" width="4" height="{h}" fill="{accent}"/>',
-        grp(".08s") +
-        f'<text class="mono t" x="24" y="{top + 38}">{esc(title)}</text></g>',
-    ]
-    if desc:
-        b.append(
-            grp(".16s") +
-            f'<text class="mono d" x="24" y="{top + 63}">{esc(desc)}</text></g>'
-        )
-    foot = [
-        f'<circle cx="29" cy="{top + 88}" r="5.5" fill="{LANG.get(lang, GRAY)}"/>',
-        f'<text class="mono g" x="42" y="{top + 92}">{esc(lang)}</text>',
-    ]
-    if stars:
-        sx = 42 + len(lang) * 6.6 + 18
-        foot.append(
-            f'<path d="M0 0l1.9 3.9 4.3.6-3.1 3 .7 4.3L0 9.8l-3.8 2 .7-4.3-3.1-3 4.3-.6z" '
-            f'transform="translate({sx},{top + 84})" fill="{YELLOW}"/>'
-        )
-        foot.append(f'<text class="mono g" x="{sx + 10}" y="{top + 92}">{stars}</text>')
-    b.append(grp(".24s") + "".join(foot) + "</g>")
-    return f"repo-{slug.lower()}.{CARD_V}", svg(w, h, "\n".join(b), style, f"{title}: {desc or lang}")
-
-
-# --------------------------------------------------------------------------
 # 4. contact: one card per link, plus an availability strip
 # --------------------------------------------------------------------------
 
@@ -512,11 +430,6 @@ def main():
     docs = {f"stack.{CARD_V}.svg": build_stack(),
             f"card.{CARD_V}.svg": build_card(),
             f"timeline.{CARD_V}.svg": build_timeline()}
-    for slug, desc, lang, stars, owner in REPOS:
-        if slug not in PINNED:
-            continue
-        name, doc = build_repo_tile(slug, desc, lang, stars, owner)
-        docs[f"{name}.svg"] = doc
     for link in CONTACT["links"]:
         name, doc = build_contact_card(link)
         docs[f"{name}.svg"] = doc
