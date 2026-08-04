@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 56" width="880" height="56" role="img" aria-label="open to software, data platform, and AI engineering roles">
+<style>
+.mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+
+.n { font-size: 13px; fill: #ebdbb2; }
+.fi { stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ping { transform-box: fill-box; transform-origin: center;
+        animation: ping 2.6s ease-out infinite; }
+@keyframes ping { 0% { opacity: .75; transform: scale(.62) }
+                  70%,100% { opacity: 0; transform: scale(1.15) } }
+</style>
+<rect x="0" y="0" width="880" height="56" rx="9" fill="#282828" stroke="#3c3836"/>
+<rect x="0" y="0" width="4" height="56" fill="#fabd2f"/>
+<g class="fi" stroke="#b8bb26" fill="none" style="color:#b8bb26" transform="translate(26,20) scale(0.9375)"><circle cx="8" cy="8" r="2.4" stroke="none" fill="currentColor"/><circle class="ping" cx="8" cy="8" r="5.2"/></g>
+<text class="mono n" x="56" y="33">open to software, data platform, and AI engineering roles</text>
+</svg>

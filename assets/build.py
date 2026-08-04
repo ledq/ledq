@@ -355,6 +355,53 @@ def build_repo_tile(slug, desc, lang, stars, owner="ledq"):
 
 
 # --------------------------------------------------------------------------
+# 4. contact: one card per link, plus an availability strip
+# --------------------------------------------------------------------------
+
+CONTACT = D["contact"]
+
+
+def build_contact_card(link):
+    """Same silhouette as a repo tile, so the two sections read as a set."""
+    w, h = 430, 72
+    style = f"""
+.t {{ font-size: 14.5px; fill: {CARD_ACCENT}; font-weight: 700; }}
+.v {{ font-size: 12px; fill: {FG_DIM}; }}
+"""
+    b = [
+        f'<rect x="0" y="0" width="{w}" height="{h}" rx="9" fill="{BG}" stroke="{BG1}"/>',
+        f'<rect x="0" y="0" width="4" height="{h}" fill="{CARD_ACCENT}"/>',
+        f'<g transform="translate(26,25)"><path d="{ICONS[link["icon"]]["d"]}" '
+        f'fill="{col(link["color"])}" transform="scale({22 / 24:.4f})"/></g>',
+        f'<text class="mono t" x="66" y="34">{esc(link["label"])}</text>',
+        f'<text class="mono v" x="66" y="54">{esc(link["value"])}</text>',
+    ]
+    return (f"contact-{link['name']}.{CARD_V}",
+            svg(w, h, "\n".join(b), style, f'{link["label"]}: {link["value"]}'))
+
+
+def build_contact_note():
+    w, h = 880, 56
+    style = f"""
+.n {{ font-size: 13px; fill: {FG}; }}
+.fi {{ stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }}
+.ping {{ transform-box: fill-box; transform-origin: center;
+        animation: ping 2.6s ease-out infinite; }}
+@keyframes ping {{ 0% {{ opacity: .75; transform: scale(.62) }}
+                  70%,100% {{ opacity: 0; transform: scale(1.15) }} }}
+"""
+    b = [
+        f'<rect x="0" y="0" width="{w}" height="{h}" rx="9" fill="{BG}" stroke="{BG1}"/>',
+        f'<rect x="0" y="0" width="4" height="{h}" fill="{CARD_ACCENT}"/>',
+        f'<g class="fi" stroke="{GREEN}" fill="none" style="color:{GREEN}" '
+        f'transform="translate(26,20) scale({FIELD_ICON / 16:.4f})">'
+        f'{FIELD_ICONS["dot"]}</g>',
+        f'<text class="mono n" x="56" y="33">{esc(CONTACT["note"])}</text>',
+    ]
+    return f"contact-note.{CARD_V}", svg(w, h, "\n".join(b), style, CONTACT["note"])
+
+
+# --------------------------------------------------------------------------
 # 4. stack: brand glyphs, grouped
 # --------------------------------------------------------------------------
 
@@ -450,6 +497,10 @@ def validate():
         if slug not in known:
             raise SystemExit(f"profile.toml: card icon '{slug}' is in no "
                              f"[[stack.groups]] block, so it has no colour")
+    for link in CONTACT["links"]:
+        if link["icon"] not in ICONS:
+            raise SystemExit(f"profile.toml: contact '{link['name']}' wants icon "
+                             f"'{link['icon']}', not vendored in assets/icons.json")
     for slug in known:
         if slug not in ICONS:
             raise SystemExit(f"profile.toml: '{slug}' is not vendored in "
@@ -466,6 +517,11 @@ def main():
             continue
         name, doc = build_repo_tile(slug, desc, lang, stars, owner)
         docs[f"{name}.svg"] = doc
+    for link in CONTACT["links"]:
+        name, doc = build_contact_card(link)
+        docs[f"{name}.svg"] = doc
+    name, doc = build_contact_note()
+    docs[f"{name}.svg"] = doc
     for name, doc in docs.items():
         (OUT / name).write_text(doc, encoding="utf-8")
 

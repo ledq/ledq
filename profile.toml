@@ -298,3 +298,30 @@ org = "upper hand ai"
 start = 24
 end = 30
 color = "yellow"
+
+# --------------------------------------------------------------------------
+# contact
+# --------------------------------------------------------------------------
+
+# Each link renders as its own card, wrapped in an <a> by the README. Links
+# inside an SVG are inert on GitHub, which is why these are separate files
+# rather than one strip.
+
+[contact]
+note = "open to software, data platform, and AI engineering roles"
+
+[[contact.links]]
+name = "linkedin"
+icon = "linkedin"
+color = "#4C9BE8"
+label = "linkedin"
+value = "/in/duyleq"
+href = "https://linkedin.com/in/duyleq"
+
+[[contact.links]]
+name = "email"
+icon = "gmail"
+color = "#EA5C4F"
+label = "email"
+value = "danielqle19@gmail.com"
+href = "mailto:danielqle19@gmail.com"
