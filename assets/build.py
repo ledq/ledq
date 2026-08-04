@@ -157,11 +157,12 @@ def build_card():
         f'<rect x="0" y="0" width="{w}" height="{h}" rx="10" fill="{BG}"/>',
         f'<rect x="0" y="0" width="{w}" height="30" rx="10" fill="{BG1}"/>',
         f'<rect x="0" y="20" width="{w}" height="10" fill="{BG1}"/>',
-        # minimise / maximise / close, right-aligned the way GTK and Qt do it
-        f'<g stroke="{GRAY}" stroke-width="1.3" fill="none" stroke-linecap="round">'
-        f'<path d="M{w - 84} 15h10"/>'
-        f'<rect x="{w - 58}" y="10" width="10" height="10" rx="1.5"/>'
-        f'<path d="M{w - 32} 10l10 10M{w - 22} 10l-10 10"/></g>',
+        # the terminal app icon: a screen with a prompt in it
+        f'<rect x="14" y="6" width="21" height="18" rx="3" fill="#1d2021" '
+        f'stroke="{BG2}"/>',
+        f'<g stroke="{GREEN}" stroke-width="1.6" fill="none" stroke-linecap="round" '
+        f'stroke-linejoin="round"><path d="M19 11l4 4-4 4"/>'
+        f'<path d="M25 19.5h5.5"/></g>',
         f'<text class="mono ttl" x="{w / 2}" y="19" text-anchor="middle">'
         f'{esc(D["card"]["title"])}</text>',
         f'<text class="mono logo" x="40" y="82" xml:space="preserve">{tspans(40, WORDMARK, 19)}</text>',
