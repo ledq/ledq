@@ -22,7 +22,7 @@ HEAD = '<?xml version="1.0" encoding="UTF-8"?>\n'
 
 # Bump when a design changes: GitHub's camo proxy caches images by URL, so a
 # same-named file keeps serving the stale copy.
-CARD_V = "v6"
+CARD_V = "v7"
 
 # Every repo card uses one accent; per-repo colours read as noise, not signal.
 CARD_ACCENT = "#fabd2f"
@@ -89,10 +89,16 @@ INFO = [
     ("Status", "open to work"),
 ]
 
-SWATCH = [
-    [BG, "#cc241d", "#98971a", "#d79921", "#458588", "#b16286", "#689d6a", FG_DIM],
-    [GRAY, RED, GREEN, YELLOW, BLUE, PURPLE, AQUA, FG],
+# Where a neofetch card puts its terminal colour swatches. Same 8-wide grid,
+# one glyph per cell; colours are looked up from STACK so they stay in one place.
+CARD_ICONS = [
+    ["python", "typescript", "cplusplus", "googlecloud", "docker", "terraform",
+     "postgresql", "googlebigquery"],
+    ["apacheairflow", "nextdotjs", "react", "fastapi", "graphql", "pytorch",
+     "langchain", "linux"],
 ]
+CARD_ICON = 22
+CARD_PITCH = 30
 
 
 def build_card():
@@ -107,8 +113,10 @@ def build_card():
 .ttl  {{ font-size: 12px; fill: {GRAY}; }}
 .cur  {{ fill: {GREEN}; animation: blink 1.06s steps(1) infinite; }}
 @keyframes blink {{ 0%,50% {{ opacity: 1 }} 50.01%,100% {{ opacity: 0 }} }}
-.sw   {{ animation: pop .35s ease-out backwards; }}
-@keyframes pop {{ from {{ opacity: 0 }} to {{ opacity: 1 }} }}
+.sw   {{ transform-box: fill-box; transform-origin: center;
+        animation: pop .45s cubic-bezier(.2,.8,.2,1) backwards; }}
+@keyframes pop {{ from {{ opacity: 0; transform: scale(.4) }}
+                 to {{ opacity: 1; transform: scale(1) }} }}
 .row  {{ animation: fade .5s ease-out backwards; }}
 @keyframes fade {{ from {{ opacity: 0 }} to {{ opacity: 1 }} }}
 """
@@ -133,14 +141,18 @@ def build_card():
             f'<text class="mono key" x="360" y="{y}">{esc(k)}</text>'
             f'<text class="mono val" x="450" y="{y}">{esc(v)}</text></g>'
         )
-    for r, rowc in enumerate(SWATCH):
-        for c, col in enumerate(rowc):
-            x, y = 360 + c * 30, 322 + r * 17
+    icons = json.loads((OUT / "icons.json").read_text())
+    colors = {slug: col for _, items in STACK for slug, _, col in items}
+    for r, row in enumerate(CARD_ICONS):
+        for c, slug in enumerate(row):
+            x, y = 360 + c * CARD_PITCH, 300 + r * 32
             d = f"{0.6 + 0.03 * (r * 8 + c):.2f}s"
-            stroke = f' stroke="{BG2}"' if col == BG else ""
             b.append(
-                f'<rect class="sw" x="{x}" y="{y}" width="26" height="13" '
-                f'fill="{col}"{stroke} style="animation-delay:{d}"/>'
+                f'<g transform="translate({x},{y})">'
+                f'<g class="sw" style="animation-delay:{d}">'
+                f'<path d="{icons[slug]["d"]}" fill="{colors[slug]}" '
+                f'transform="scale({CARD_ICON / 24:.4f})"/>'
+                f"</g></g>"
             )
     role = next((v for k, v in INFO if k == "Role"), "engineer")
     return svg(w, h, "\n".join(b), style, f"ledq / duy le: {role.lower()}")
