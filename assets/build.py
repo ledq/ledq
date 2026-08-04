@@ -130,7 +130,7 @@ CARD_PITCH = 30
 
 def build_card():
     # width has slack for the longest INFO value; check after editing INFO
-    w, h = 940, 375
+    w, h = 940, 400
     host = D["card"]["host"]
     style = f"""
 .logo {{ font-size: 16px; fill: {AQUA}; }}
@@ -158,18 +158,20 @@ def build_card():
         f'<rect x="0" y="0" width="{w}" height="30" rx="10" fill="{BG1}"/>',
         f'<rect x="0" y="20" width="{w}" height="10" fill="{BG1}"/>',
         # the terminal app icon: a screen with a prompt in it
-        f'<rect x="14" y="6" width="21" height="18" rx="3" fill="#1d2021" '
+        f'<rect x="12" y="4" width="25" height="22" rx="3.5" fill="#1d2021" '
         f'stroke="{BG2}"/>',
-        f'<g stroke="{GREEN}" stroke-width="1.6" fill="none" stroke-linecap="round" '
-        f'stroke-linejoin="round"><path d="M19 11l4 4-4 4"/>'
-        f'<path d="M25 19.5h5.5"/></g>',
+        f'<g stroke="{GREEN}" stroke-width="1.9" fill="none" stroke-linecap="round" '
+        f'stroke-linejoin="round"><path d="M18 10l5 5-5 5"/>'
+        f'<path d="M25 20.5h6.5"/></g>',
+        # minimise / maximise / close, right-aligned the way GTK and Qt do it
+        f'<g stroke="{GRAY}" stroke-width="1.3" fill="none" stroke-linecap="round">'
+        f'<path d="M{w - 84} 15h10"/>'
+        f'<rect x="{w - 58}" y="10" width="10" height="10" rx="1.5"/>'
+        f'<path d="M{w - 32} 10l10 10M{w - 22} 10l-10 10"/></g>',
         f'<text class="mono ttl" x="{w / 2}" y="19" text-anchor="middle">'
         f'{esc(D["card"]["title"])}</text>',
         f'<text class="mono logo" x="40" y="82" xml:space="preserve">{tspans(40, WORDMARK, 19)}</text>',
-        # the cursor rides inside the same text run, so it lands right after the
-        # host string whatever monospace font the reader's browser picks
-        f'<text class="mono head" x="360" y="62">{esc(host)}'
-        f'<tspan class="cur">\u2588</tspan></text>',
+        f'<text class="mono head" x="360" y="62">{esc(host)}</text>',
         f'<text class="mono dim" x="360" y="80">{"-" * len(host)}</text>',
     ]
     for i, row in enumerate(INFO):
@@ -198,6 +200,11 @@ def build_card():
                 f'transform="scale({CARD_ICON / 24:.4f})"/>'
                 f"</g></g>"
             )
+    b.append(
+        f'<text class="mono head" x="40" y="{h - 18}">{esc(host)}'
+        f'<tspan fill="{FG}">:</tspan><tspan fill="{BLUE}">~</tspan>'
+        f'<tspan fill="{FG}">$\u00a0</tspan><tspan class="cur">\u2588</tspan></text>'
+    )
     role = next((r["value"] for r in INFO if r["key"] == "Role"), "engineer")
     return svg(w, h, "\n".join(b), style, f"ledq / duy le: {role.lower()}")
 
